@@ -1,0 +1,68 @@
+app-id: xyz.anirban.ChatGPTLencx
+runtime: org.freedesktop.Platform
+runtime-version: '22.08'
+sdk: org.freedesktop.Sdk
+command: run.sh
+rename-desktop-file: chat-gpt.desktop
+rename-icon: chat-gpt
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=pulseaudio
+  - --device=dri
+  # - --filesystem=home
+modules:
+
+  - name: run
+    buildsystem: simple
+    build-commands:
+      - install -D run.sh /app/bin/run.sh
+    sources:
+      - type: script
+        dest-filename:  run.sh
+        commands:
+          - 'echo "Running Inside Sandbox" '
+          # - '/app/bin/chat-gpt'
+          - '/app/opt/chatgpt-lencx-appimage/squashfs-root/usr/bin/chat-gpt'
+
+  - name: chatgpt-lencx-deb
+    buildsystem: simple
+    build-commands:
+      - ar -x chatgpt-lencx.deb
+      - rm -f chatgpt-lencx.deb
+      - tar -xf data.tar.*
+      - rm -f control.tar.gz data.tar.* debian-binary
+      - mkdir -pv /app/opt/chatgpt-lencx-deb
+      # - cp -r opt/* /app/opt/chatgpt-lencx
+      - cp -r * /app/opt/chatgpt-lencx-deb
+      - cp -r usr/bin /app
+      - cp -r usr/share /app/share
+      - desktop-file-edit --set-key=Exec --set-value="run.sh" /app/share/applications/chat-gpt.desktop
+      - desktop-file-edit --set-key=Icon --set-value="xyz.anirban.ChatGPTLencx" /app/share/applications/chat-gpt.desktop
+
+    sources:
+      - type: file
+        url: "https://github.com/lencx/ChatGPT/releases/download/v1.0.0/ChatGPT_1.0.0_linux_x86_64.deb"
+        dest-filename: "chatgpt-lencx.deb"
+        sha256: "c13e6ff294f7630818a8e142fd22b33c5b5943a0ead6747c6812277b74562bdc"
+
+  
+  - name: chatgpt-lencx-appimage
+    buildsystem: simple
+    build-commands:
+      - tar xzvf chat-gpt.AppImage.tar.gz
+      - rm chat-gpt.AppImage.tar.gz
+      - chmod +x chat-gpt_1.0.0_amd64.AppImage
+      - ./chat-gpt_1.0.0_amd64.AppImage --appimage-extract
+      - rm chat-gpt_1.0.0_amd64.AppImage
+      - mkdir -pv /app/opt/chatgpt-lencx-appimage
+      - cp -r squashfs-root /app/opt/chatgpt-lencx-appimage
+
+    sources:
+      - type: file
+        url: "https://github.com/lencx/ChatGPT/releases/download/v1.0.0/ChatGPT_1.0.0_linux_x86_64.AppImage.tar.gz"
+        dest-filename: "chat-gpt.AppImage.tar.gz"
+        sha256: "aac475e3d44e7104d66a9c26ff1333df14f8188d9e4d6a29b6052622930021d8"
+
+  
