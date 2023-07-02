@@ -1,0 +1,81 @@
+app-id: xyz.anirban.ChatGPTElectron
+runtime: org.freedesktop.Platform
+runtime-version: '22.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: "22.08"
+command: run.sh
+rename-desktop-file: chat-gpt.desktop
+rename-icon: chat-gpt
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=pulseaudio
+  - --device=dri
+  # - --filesystem=home
+modules:
+
+  - name: run
+    buildsystem: simple
+    build-commands:
+      - install -D run.sh /app/bin/run.sh
+    sources:
+      - type: script
+        dest-filename:  run.sh
+        commands:
+          - 'echo "Running Inside Sandbox" '
+          # - '/app/bin/chat-gpt'
+          - '/app/opt/chatgpt-lencx-appimage/squashfs-root/usr/bin/chat-gpt'
+
+  - name: chatgpt-lencx-deb
+    buildsystem: simple
+    build-commands:
+      - ar -x chatgpt-lencx.deb
+      - rm -f chatgpt-lencx.deb
+      - tar -xf data.tar.*
+      - rm -f control.tar.gz data.tar.* debian-binary
+      - mkdir -pv /app/opt/chatgpt-lencx-deb
+      # - cp -r opt/* /app/opt/chatgpt-lencx
+      - cp -r * /app/opt/chatgpt-lencx-deb
+      - cp -r usr/bin /app
+      - cp -r usr/share /app
+      - desktop-file-edit --set-key=Exec --set-value="run.sh" /app/share/applications/chat-gpt.desktop
+      - desktop-file-edit --set-key=Icon --set-value="xyz.anirban.ChatGPTElectron" /app/share/applications/chat-gpt.desktop
+
+    sources:
+      - type: file
+        url: "https://github.com/lencx/ChatGPT/releases/download/v1.0.0/ChatGPT_1.0.0_linux_x86_64.deb"
+        dest-filename: "chatgpt-lencx.deb"
+        sha256: "c13e6ff294f7630818a8e142fd22b33c5b5943a0ead6747c6812277b74562bdc"
+
+  
+  - name: chatgpt-elecron
+    buildsystem: simple
+    build-commands:
+      - tar xzvf chatgpt-electron.tar.gz
+      - rm chatgpt-electron.tar.gz
+      - mkdir -pv /app/opt/chatgpt-electron
+      - cp -r * /app/opt/chatgpt-electron
+
+    sources:
+      - type: file
+        url: "https://github.com/anirbandey1/chatgpt-electron/releases/download/v1.0.0/chatgpt-electron-linux-x64.tar.gz"
+        dest-filename: "chatgpt-electron.tar.gz"
+        sha256: "8948e006f202fb15cc7cab288724b9ea0574ef350d2f6541985fdfeed7cf9eff"
+  
+  - name: electron-sample-app
+    buildsystem: simple
+    build-options:
+      env:
+        XDG_CACHE_HOME: /run/build/electron-sample-app/flatpak-node/cache
+        npm_config_cache: /run/build/electron-sample-app/flatpak-node/npm-cache
+        npm_config_nodedir: /usr/lib/sdk/node18
+        npm_config_offline: 'true'
+    subdir: main
+    sources:
+      - type: archive
+        url: https://github.com/flathub/electron-sample-app/archive/1.0.1.tar.gz
+        sha256: a2feb3f1cf002a2e4e8900f718cc5c54db4ad174e48bfcfbddcd588c7b716d5b
+        dest: main
+

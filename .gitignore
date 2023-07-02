@@ -2,3 +2,9 @@
 
 build-dir
 .flatpak-builder
+
+.venv/
+venv/
+
+
+node_modules/
