@@ -24,6 +24,7 @@ modules:
       - cp -rv usr/bin /app/bin
       - cp -rv usr/share /app/share
       - cp -rv opt /app
+      - desktop-file-edit --set-key=Exec --set-value="/app/bin/openai-client" /app/share/applications/openai-client.desktop
       - desktop-file-edit --set-key=Icon --set-value="io.github.anirbandey1.OpenAiClient" /app/share/applications/openai-client.desktop
 
     sources:
