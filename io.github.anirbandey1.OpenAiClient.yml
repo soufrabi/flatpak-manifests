@@ -1,4 +1,4 @@
-app-id: xyz.anirban.OpenAiClient
+app-id: io.github.anirbandey1.OpenAiClient
 runtime: org.freedesktop.Platform
 runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
@@ -23,24 +23,15 @@ modules:
         dest-filename:  run.sh
         commands:
           - 'echo "Running Inside Sandbox" '
-          - '/app/opt/pfetch/pfetch'
           - '/app/opt/openai-client-debian/openai-client-bin/binaries/main'
 
-  - name: pfetch
-    buildsystem: simple
-    build-commands:
-      - mkdir -pv /app/opt/pfetch
-      - cp -rv . /app/opt/pfetch
-    sources:
-      - type: git
-        url: https://github.com/dylanaraps/pfetch.git
   - name: openai-client-git
     buildsystem: simple
     build-commands:
       - mkdir -pv /app
       - cp -rv share /app
       - desktop-file-edit --set-key=Exec --set-value="run.sh" /app/share/applications/openai-client.desktop
-      - desktop-file-edit --set-key=Icon --set-value="xyz.anirban.OpenAiClient" /app/share/applications/openai-client.desktop
+      - desktop-file-edit --set-key=Icon --set-value="io.github.anirbandey1.OpenAiClient" /app/share/applications/openai-client.desktop
     sources:
       - type: git
         url: https://github.com/anirbandey1/openai-client.git
