@@ -29,6 +29,6 @@ modules:
 
     sources:
       - type: file
-        url: "https://github.com/anirbandey1/openai-client/releases/download/v1.0.1/openai-client.deb"
+        url: "https://github.com/anirbandey1/openai-client/releases/download/v1.0.2/openai-client.deb"
         dest-filename: "openai-client.deb"
-        sha256: "0f03235f217f6e9affff4b5426af9612650a7b43a14d0c2eef2cdb02b3dff098"
+        sha256: "db72852669cca0c91b0ae33f9b36202ad3a475be81424c3f92665bd2df9b363b"
