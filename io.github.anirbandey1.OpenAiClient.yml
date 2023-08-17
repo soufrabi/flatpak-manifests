@@ -31,4 +31,4 @@ modules:
       - type: file
         url: "https://github.com/anirbandey1/openai-client/releases/download/v1.0.2/openai-client.deb"
         dest-filename: "openai-client.deb"
-        sha256: "db72852669cca0c91b0ae33f9b36202ad3a475be81424c3f92665bd2df9b363b"
+        sha256: "a4203bdec3810d594ff49158d3a382000f9e833791516b052079ee4c629bb243"
