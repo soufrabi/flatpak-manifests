@@ -1,0 +1,23 @@
+app-id: com.soufrabi.wassup
+runtime: org.kde.Platform
+runtime-version: '6.4'
+sdk: org.kde.Sdk
+base: io.qt.qtwebengine.BaseApp
+base-version: '6.4'
+command: wassup
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --socket=pulseaudio
+  - --device=dri
+modules:
+  - name: wassup
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: git
+        url: https://github.com/soufrabi/wassup.git
+        branch: main
