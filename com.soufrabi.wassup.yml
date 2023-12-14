@@ -6,12 +6,14 @@ base: io.qt.qtwebengine.BaseApp
 base-version: '6.5'
 command: wassup
 finish-args:
+  - --device=dri
   - --share=ipc
   - --share=network
   - --socket=fallback-x11
   - --socket=wayland
   - --socket=pulseaudio
-  - --device=dri
+  # required for notifications in various desktop environments
+  - --talk-name=org.freedesktop.Notifications
 modules:
   - name: wassup
     buildsystem: cmake-ninja

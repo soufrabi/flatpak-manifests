@@ -6,12 +6,12 @@ base: io.qt.qtwebengine.BaseApp
 base-version: '6.5'
 command: aimerge
 finish-args:
+  - --device=dri
   - --share=ipc
   - --share=network
   - --socket=fallback-x11
   - --socket=wayland
   - --socket=pulseaudio
-  - --device=dri
 modules:
   - name: aimerge
     buildsystem: cmake-ninja

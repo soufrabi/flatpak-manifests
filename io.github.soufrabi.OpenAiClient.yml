@@ -6,11 +6,11 @@ command: openai-client
 rename-desktop-file: openai-client.desktop
 rename-icon: openai-client
 finish-args:
+  - --device=dri
   - --share=ipc
   - --share=network
   - --socket=x11
   - --socket=pulseaudio
-  - --device=dri
   # - --filesystem=home
 modules:
 
