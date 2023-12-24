@@ -1,4 +1,4 @@
-app-id: io.github.soufrabi.OpenAiClient
+app-id: com.soufrabi.OpenAIClient
 runtime: org.freedesktop.Platform
 runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
@@ -9,7 +9,8 @@ finish-args:
   - --device=dri
   - --share=ipc
   - --share=network
-  - --socket=x11
+  - --socket=fallback-x11
+  - --socket=wayland
   - --socket=pulseaudio
   # - --filesystem=home
 modules:
@@ -23,9 +24,7 @@ modules:
       - rm -f control.tar.gz data.tar.* debian-binary
       - cp -rv usr/bin /app/bin
       - cp -rv usr/share /app/share
-      - cp -rv opt /app
-      - desktop-file-edit --set-key=Exec --set-value="/app/bin/openai-client" /app/share/applications/openai-client.desktop
-      - desktop-file-edit --set-key=Icon --set-value="io.github.soufrabi.OpenAiClient" /app/share/applications/openai-client.desktop
+      - desktop-file-edit --set-key=Icon --set-value="com.soufrabi.OpenAIClient" /app/share/applications/openai-client.desktop
 
     sources:
       - type: file
