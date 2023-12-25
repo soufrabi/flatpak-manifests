@@ -22,12 +22,12 @@ modules:
       - rm -f openai-client.deb
       - tar -xf data.tar.*
       - rm -f control.tar.gz data.tar.* debian-binary
-      - cp -rv usr/bin /app/bin
-      - cp -rv usr/share /app/share
+      - cp -rv usr/bin /app
+      - cp -rv usr/share /app
       - desktop-file-edit --set-key=Icon --set-value="com.soufrabi.OpenAIClient" /app/share/applications/openai-client.desktop
 
     sources:
       - type: file
-        url: "https://github.com/soufrabi/openai-client/releases/download/v1.0.2/openai-client.deb"
+        url: "https://github.com/soufrabi/openai-client/releases/download/v1.0.3/openai-client.deb"
         dest-filename: "openai-client.deb"
-        sha256: "a4203bdec3810d594ff49158d3a382000f9e833791516b052079ee4c629bb243"
+        sha256: "ae82c33b6fb44bbbc5e2cc5db7784a4c9bc7afe4393bac56935ee90cd2012ea7"
