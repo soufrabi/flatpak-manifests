@@ -1,4 +1,4 @@
-app-id: com.soufrabi.QPlex
+app-id: org.soufrabi.QPlex
 runtime: org.freedesktop.Platform
 runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
@@ -24,7 +24,7 @@ modules:
       - rm -f control.tar.gz data.tar.* debian-binary
       - cp -rv usr/bin /app
       - cp -rv usr/share /app
-      - desktop-file-edit --set-key=Icon --set-value="com.soufrabi.QPlex" /app/share/applications/qplex.desktop
+      - desktop-file-edit --set-key=Icon --set-value="org.soufrabi.QPlex" /app/share/applications/qplex.desktop
 
     sources:
       - type: file
