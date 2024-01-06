@@ -28,6 +28,6 @@ modules:
 
     sources:
       - type: file
-        url: "https://github.com/soufrabi/qplex/releases/download/v0.1.3/qplex.deb"
+        url: "https://github.com/soufrabi/qplex/releases/download/v0.1.3.75-dev/qplex.deb"
         dest-filename: "qplex.deb"
-        sha256: "8d3bfae21e6d4b01d23ad4e562c768213714017b610882565985a2bf11257a24"
+        sha256: "c6d19c253fba372e449d5ec0c4c736c94abb75e023dbc546e0ab398b1ca8cfc4"
